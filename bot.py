@@ -289,7 +289,7 @@ async def on_ready():
 # Запуск бота
 async def main():
     async with client:
-        client.run("")  # Замените на токен вашего бота
+        client.run("MTM5MDAzMzc4Nzc2MDY3NzA0NQ.GTfxw1.s3RLF30NJS1q2LZP5Kb8HViNM5lo5-15qqwdiA")  # Замените на токен вашего бота
 
 if __name__ == "__main__":
     asyncio.run(main())
