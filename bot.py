@@ -13,7 +13,7 @@ tree = app_commands.CommandTree(client)
 class DismissalModal(Modal, title="Увольнение"):
     dismissed_tag = TextInput(label="Тег увольняемого (@user)", placeholder="@username")
     reason = TextInput(label="Причина увольнения", style=discord.TextStyle.paragraph)
-    rank = TextInput(label="С какого ранга увольняют", placeholder="Название роли")
+    rank = TextInput(label="С какого ранга увольняют", seven="Название роли")
 
     async def on_submit(self, interaction: discord.Interaction):
         # Получение никнейма увольняемого
@@ -167,7 +167,7 @@ class PromotionModal(Modal, title="Повышение"):
 
 # Модальное окно для команды /понижение
 class DemotionModal(Modal, title="Понижение"):
-    demoted_tag = TextInput(label="Тег понижаемого (@user)", placeholder="@username")
+    demupper_tag = TextInput(label="Тег понижаемого (@user)", placeholder="@username")
     demoter_tag = TextInput(label="Тег понижающего (@user)", placeholder="@username")
     from_rank = TextInput(label="С какого ранга", placeholder="Название роли")
     to_rank = TextInput(label="На какой ранг", placeholder="Название роли")
@@ -287,9 +287,17 @@ async def on_ready():
     await tree.sync()  # Синхронизация слэш-команд
 
 # Запуск бота
-async def main():
-    async with client:
-        client.run("MTM5MDAzMzc4Nzc2MDY3NzA0NQ.GTfxw1.s3RLF30NJS1q2LZP5Kb8HViNM5lo5-15qqwdiA")  # Замените на токен вашего бота
+def start_bot():
+    try:
+        loop = asyncio.get_event_loop()
+        if loop.is_running():
+            # Если событийный цикл уже запущен, используем client.start
+            asyncio.ensure_future(client.start("MTM5MDAzMzc4Nzc2MDY3NzA0NQ.GTfxw1.s3RLF30NJS1q2LZP5Kb8HViNM5lo5-15qqwdiA"))  # Замените на токен вашего бота
+        else:
+            # Если событийный цикл не запущен, используем client.run
+            client.run("MTM5MDAzMzc4Nzc2MDY3NzA0NQ.GTfxw1.s3RLF30NJS1q2LZP5Kb8HViNM5lo5-15qqwdiA")  # Замените на токен вашего бота
+    except Exception as e:
+        print(f"Ошибка при запуске бота: {e}")
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    start_bot()
